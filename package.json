@@ -1,0 +1,11 @@
+{
+  "name": "city-explorer-api",
+  "version": "1.0.0",
+  "description": "server for city-explorer",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rhett Beardemphl",
+  "license": "ISC"
+}
