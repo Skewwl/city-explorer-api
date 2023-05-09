@@ -5,6 +5,7 @@
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+Making a backend database to respond with my frontend interface.
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
@@ -29,6 +30,6 @@ Estimate of time needed to complete: 1 billion hours
 
 Start time: 2:45p
 
-Finish time: 
+Finish time: +2 days @ 4pm
 
 Actual time needed to complete: 400 billion hours
