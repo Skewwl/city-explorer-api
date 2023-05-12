@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const data = require('./data/weather.json');
+// const data = require('./data/weather.json');
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 3001;
@@ -16,6 +16,15 @@ class Forcast {
   }
 }
 
+class MovieList {
+  constructor(obj) {
+    this.title = obj.title;
+    this.poster = `https://image.tmdb.org/t/p/w200${obj.poster_path}`;
+    this.overview = obj.overview;
+    this.releasedOn = obj.release_date;
+  }
+}
+
 app.get('/', (request, response) => {
   response.status(200).send('default route functioning appropriately');
 });
@@ -23,13 +32,24 @@ app.get('/', (request, response) => {
 app.get('/weather', async (request, response, next) => {
 
   try{
-    const {searchQuery, lat, lon} = request.query;
-    console.log(lat, lon);
+    const {lat, lon} = request.query;
     const weatherUrl = `https://api.weatherbit.io/v2.0/current?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`;
     const weatherResponse = await axios.get(weatherUrl);
-    console.log(weatherResponse.data.data[0]);
     const formattedWeatherData = weatherResponse.data.data.map((resObj) => new Forcast(resObj));
     response.status(200).send(formattedWeatherData);
+  }
+  catch(error){
+    next(error);
+  }
+});
+
+app.get('/movies', async (request, response, next) => {
+  try{
+    const {city} = request.query;
+    const movieDBUrl = `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&api_key=${process.env.MOVIE_API_KEY}&query=${city}`;
+    const movieResponse = await axios.get(movieDBUrl);
+    const formattedMovieData = movieResponse.data.results.map(resObj => new MovieList(resObj));
+    response.status(200).send(formattedMovieData);
   }
   catch(error){
     next(error);
